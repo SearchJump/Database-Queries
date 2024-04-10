@@ -1,12 +1,4 @@
-Los lenguajes de programacion suelen usar librerias para trabajar con las bases de datos object relational mapping, y no escribir en lenguaje sql usando programacion orientada a objetos,por ejemplo javascript usa squalize
-Es como una lista de hojas de calculo sql
-TABLAS ,RELACION UNO A UNO O UNO A MUCHOS
-TIENEN TIPOS DE DATOS INT,FLOAT,ETC /SCHEMAS SON LA FORMA EN LA QUE ESTA DISENADA LA DATABASE
-HAY RESTRICCIONES O/  PRIMARY KEY NO PUEDE SER NULL Y DEBE SER UNICO
-//////////////
-CADA TABLA TIENE QUE SER UNA ENTIDAD UNICA NO SE PUEDE TENER DATOS DUPLICADOS ,ESTO ES NORMALIZAR
--- ES PARA COMENTAR
--- @BLOCK es para ejecutar un segmento de codigo
+
 
 
 CREATE TABLE Users(
