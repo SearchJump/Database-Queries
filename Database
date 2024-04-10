@@ -1,0 +1,97 @@
+Los lenguajes de programacion suelen usar librerias para trabajar con las bases de datos object relational mapping, y no escribir en lenguaje sql usando programacion orientada a objetos,por ejemplo javascript usa squalize
+Es como una lista de hojas de calculo sql
+TABLAS ,RELACION UNO A UNO O UNO A MUCHOS
+TIENEN TIPOS DE DATOS INT,FLOAT,ETC /SCHEMAS SON LA FORMA EN LA QUE ESTA DISENADA LA DATABASE
+HAY RESTRICCIONES O/  PRIMARY KEY NO PUEDE SER NULL Y DEBE SER UNICO
+//////////////
+CADA TABLA TIENE QUE SER UNA ENTIDAD UNICA NO SE PUEDE TENER DATOS DUPLICADOS ,ESTO ES NORMALIZAR
+-- ES PARA COMENTAR
+-- @BLOCK es para ejecutar un segmento de codigo
+
+
+CREATE TABLE Users(
+id  INT PRYMARY KEY AUTOINCREMENT,
+mail VARCHAR(255) NOT NULL UNIQUE, maximo tamanio
+bio TEXT,
+country VARCHAR(12)
+
+); identifiers
+-- @BLOCK
+INSERT INTO Users(email, bio, country)
+VALUES
+('hello@world.com','foo','US')
+('hello@test.com','foo','US')
+('hello@deasa.com','foo','US')
+
+
+-- @BLOCK
+SELECT * FROM Users; --MUESTRA TODO
+SELECT email, id FROM Users --MUESTRA SOLO EL MAIL E ID
+WHERE country= 'US'
+AND id >1 -- CONDICIONAL
+
+AND email LIKE 'h%' --Search patters que comienzen  con h %h que terminen con h
+
+ORDER BY id DESC --ordenar por id descendiendo
+LIMIT 2;MAXIMAS FILAS RETORNADAS
+///////////////////LIMITACIONES////////////////
+SIN INDICE LA BUSQUEDA ES MUCHO MAS LENTA SI LA DATABASE ES GRANDE PARA ESO ES NECESARIO ,CREAR UN INDEX
+//////////////////////////////////////////////
+CREATE INDEX email_index ON Users(email);
+-- SE CREA EL INDICE PARA VELOCIDAD
+//////////////////
+RELACIONAMIENTO
+
+-- @BLOCK
+CREATE TABLE Rooms(
+id INT AUTO_INCREMENT
+street VARCHAR(255)
+PRIMARY KEY(id) --relacionamiento de ambos
+FOREIGN KEY (owner_id) REFERENCES Users(id)
+)
+
+--SE PUEDE INSERTAR EN LA TABLA A LA DATABASE DE 
+INSERT INTO Users(owner_id, street)
+VALUES
+('1','calle');
+('1','street');
+
+///SE LEEN LOS DATOS DE 2TABLAS
+//UNION DE CONJUNTOS
+LEFT JOIN 
+RIGHT JOIN
+FULL OUTER JOIN//UNIONES
+
+SELECT * FROM Users(
+INNER JOIN Rooms
+Users.id AS user_id,
+Rooms.id AS room_id,-- RENOMBRADO
+email,
+street,
+)
+ON Rooms.owner_id= Users.id
+
+//INTERMEDIO RELACION DE UNO A MUCHOS Y VICEVERSA
+
+CREATE TABLE Bookings(
+id INT AUTO_INCREMENT,
+guest_id INT NOT NULL,
+room_id INT NOT NULL,
+check_in DATETIME,
+PRIMARY KEY (id),
+FOREIGN KEY(guest_id) REFERENCES Users(id)
+FOREIGN KEY(room_id) REFERENCES Rooms(id)
+);
+
+-- @block Rooms a user has booked
+SELECT 
+guest_id,
+street,
+check_in
+FROM BOOKING
+INNER JOIN Rooms ON Rooms.owner_id = guest_id
+WHERE guest_id=1
+// esta es una busqueda de ambas tables en  relacionamiento
+// esta es una busqueda de ambas tables en  relacionamiento de cuantas habitaciones tiene un cliente,tambien se puede hacer de una manera distinta.
+
+DROP TABLE Users; BORRA LA TABLA
